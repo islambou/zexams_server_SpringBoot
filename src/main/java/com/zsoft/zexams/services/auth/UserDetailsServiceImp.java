@@ -23,6 +23,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+        System.out.println(username);
         User user = userService.findByUsername(username);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();

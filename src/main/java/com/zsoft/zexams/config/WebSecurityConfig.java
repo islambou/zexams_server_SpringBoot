@@ -1,5 +1,6 @@
 package com.zsoft.zexams.config;
 
+import com.zsoft.zexams.services.auth.UserDetailsServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,32 +31,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public MySimpleUrlAuthenticationSuccessHandler mySimpleUrlAuthenticationSuccessHandler() {
-        System.out.println("success");
         return new MySimpleUrlAuthenticationSuccessHandler();
     }
 
     @Bean
     public MySimpleUrlAuthenticationFailureHandler mySimpleUrlAuthenticationFailureHandler() {
-        System.out.println("faillure");
         return new MySimpleUrlAuthenticationFailureHandler();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
         http
+                .authorizeRequests()
+                .anyRequest()
+                .permitAll()
+                .and()
                 .formLogin()
-                .loginProcessingUrl("/login")
-                .successHandler(mySimpleUrlAuthenticationSuccessHandler())
-                .failureHandler(mySimpleUrlAuthenticationFailureHandler())
                 .usernameParameter("username")
                 .passwordParameter("password")
+                .permitAll();
         ;
 
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        System.out.println("configureGlobal");
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
