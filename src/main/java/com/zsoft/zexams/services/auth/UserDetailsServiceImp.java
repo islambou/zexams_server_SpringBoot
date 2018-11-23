@@ -23,7 +23,6 @@ public class UserDetailsServiceImp implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        System.out.println(username);
         User user = userService.findByUsername(username);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
@@ -31,6 +30,8 @@ public class UserDetailsServiceImp implements UserDetailsService {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getId()));
         }
         System.out.println("imp called");
+        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+        System.out.println(userDetails);
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }
 }

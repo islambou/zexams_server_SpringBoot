@@ -1,25 +1,34 @@
 package com.zsoft.zexams.controllers;
 
 
-import com.zsoft.zexams.modules.UserCreds;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import com.zsoft.zexams.modules.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.RequestScope;
+
+import java.security.Principal;
 
 @RestController
 public class UserController {
 
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    String postUserCreds(@RequestBody UserCreds creds) {
-        System.out.println("trying to login");
+    @RequestMapping("grantAccess")
+    String sendSignedUser() {
 
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword());
-
-        System.out.println(authenticationToken.getPrincipal().toString());
-
-        return "d";
+        System.out.println(auth);
+        return "hello";
     }
 
-
+    @RequestMapping("unAuth")
+    String sendUnAuthMessage() {
+        return "credentials are wrong";
+    }
 }
+
+
+

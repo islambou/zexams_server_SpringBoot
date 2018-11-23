@@ -50,6 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .usernameParameter("username")
                 .passwordParameter("password")
+                .successForwardUrl("/grantAccess")
+                .failureForwardUrl("/unAuth")
                 .permitAll();
         ;
 
