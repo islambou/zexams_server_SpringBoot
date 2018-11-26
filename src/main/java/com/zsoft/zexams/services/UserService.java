@@ -1,18 +1,13 @@
 package com.zsoft.zexams.services;
 
 import com.zsoft.zexams.modules.User;
-import com.zsoft.zexams.modules.UserRole;
 import com.zsoft.zexams.repositories.RoleRepository;
 import com.zsoft.zexams.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 public class UserService {
@@ -44,9 +39,9 @@ public class UserService {
 
 
     public void save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<UserRole>((Collection<? extends UserRole>) roleRepository.findById("ADMIN_Role").get()));
-        userRepository.save(user);
+      /*  user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRoles(new ArrayList<UserRole>((Collection<? extends UserRole>) roleRepository.findById("ADMIN_Role").get()));
+        userRepository.save(user);*/
     }
 
     public User updateUser(User user) {

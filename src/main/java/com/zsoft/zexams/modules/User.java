@@ -1,19 +1,29 @@
 package com.zsoft.zexams.modules;
 
-import java.util.Set;
+import org.springframework.data.annotation.Id;
+
+import java.util.ArrayList;
 
 public class User {
+    @Id
+    private String id;
     private String username;
     private String password;
-    private Set<UserRole> roles;
+    private ArrayList<UserRole> roles;
 
+    public String getId() {
+        return id;
+    }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public User(String username, Set<UserRole> roles) {
+    public User() {
+    }
+
+    public User(String username, ArrayList<UserRole> roles) {
         this.username = username;
         this.roles = roles;
     }
@@ -34,17 +44,18 @@ public class User {
         this.password = password;
     }
 
-    public Set<UserRole> getRoles() {
+    public ArrayList<UserRole> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<UserRole> roles) {
+    public void setRoles(ArrayList<UserRole> roles) {
         this.roles = roles;
     }
 
     @Override
     public String toString() {
         return "User{" +
+                "id='" + id + '\'' +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", roles=" + roles +
