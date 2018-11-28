@@ -42,6 +42,11 @@ public class UserTestAnswersService {
     public double testAnswersMark(String userTestAnswersId) {
 
         UserTestAnswers userTestAnswers = testAnswersRepository.findById(userTestAnswersId).get();
+
+        return testAnswersMark(userTestAnswers);
+    }
+
+    public double testAnswersMark(UserTestAnswers userTestAnswers) {
         Test test = testsService.findById(userTestAnswers.getTest());
 
         List<Question> testQuestions = questionsService.getByIds(test.getQuestions());
@@ -86,5 +91,9 @@ public class UserTestAnswersService {
 
         System.out.println((float) finalMark.get() / goodAnswers.size());
         return ((float) finalMark.get() / goodAnswers.size()) * 100;
+    }
+
+    public ArrayList<UserTestAnswers> findUserTests(String userId) {
+        return testAnswersRepository.findByUser(userId);
     }
 }
